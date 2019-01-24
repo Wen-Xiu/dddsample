@@ -1,35 +1,53 @@
-pipeline{
-    agent any
-    tools{
-        maven 'maven'
-        jdk 'java_8'
-    }
+def label = "docker-${UUID.randomUUID().toString()}"
+podTemplate(label: label, yaml: """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven
+    image: maven:alpine
+    command:
+    - cat
+    tty: true
+  - name: docker
+    image: docker:1.11
+    command: ['cat']
+    tty: true
+    volumeMounts:
+    - name: dockersock
+      mountPath: /var/run/docker.sock
+  volumes:
+  - name: dockersock
+    hostPath:
+      path: /var/run/docker.sock
+"""
+){
+    def image = "jenkins/jnlp-slave"
+    node(label)
     stages {
         stage ("initialize") {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Wen-Xiu/dddsample.git']]])
-            }
+            git 'https://github.com/Wen-Xiu/dddsample.git'
         }
         stage ('test'){
-            steps {
+            container('maven') {
                 sh "mvn test"
             }
         }
 
         stage ('build'){
-            steps {
+            container('maven') {
                 sh "mvn clean install -Dmaven.test.skip=true"
             }
         }
 
         stage ('push') {
-            steps {
+            container('docker') {
                 sh './image-push.sh'
             }
         }
 
         stage ('dev deploy') {
-            steps {
+            container('docker') {
                 sh 'echo WIP: deploy to dev environment'
             }
         }
