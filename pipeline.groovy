@@ -24,9 +24,6 @@ spec:
 ) {
     def image = "jenkins/jnlp-slave"
     node(label){
-        stage ("initialize") {
-            git 'https://github.com/Wen-Xiu/dddsample.git'
-        }
         stage ('test'){
             container('maven') {
                 sh "mvn test"
