@@ -24,7 +24,7 @@ pipeline{
 
         stage ('push') {
             steps {
-                sh 'echo WIP: push image to repository'
+                sh './image-push.sh'
             }
         }
 
