@@ -29,7 +29,7 @@ pipeline{
                 sh '''
                   pip install awscli
                   echo "Not logged into ECR yet, logging in"
-                  login_command=$(aws ecr get-login --registry-ids 494526681395 --region eu-central-1 --no-include-email)
+                  login_command=$(aws ecr get-login --registry-ids 494526681395 --region ap-southeast-1--no-include-email)
                   eval "${login_command}" &> /dev/null
                   if docker pull 494526681395.dkr.ecr.ap-southeast-1.amazonaws.com/dddsample; then
                   echo "Login succeeded"

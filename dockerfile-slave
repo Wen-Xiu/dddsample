@@ -1,4 +1,4 @@
-from jenkins/jnlp-slave
+from ninech/jnlp-slave-with-docker
 
 USER root
 
