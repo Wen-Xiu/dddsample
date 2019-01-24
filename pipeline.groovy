@@ -30,7 +30,7 @@ pipeline{
 
         stage ('dev deploy') {
             steps {
-                sh 'WIP: echo deploy to dev environment'
+                sh 'echo WIP: deploy to dev environment'
             }
         }
     }
