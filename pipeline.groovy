@@ -1,5 +1,5 @@
 def label = "docker-${UUID.randomUUID().toString()}"
-podTemplate(label: label, yaml: """
+podTemplate(label: label, yaml: '''
 apiVersion: v1
 kind: Pod
 spec:
@@ -20,7 +20,7 @@ spec:
   - name: dockersock
     hostPath:
       path: /var/run/docker.sock
-"""
+'''
 ){
     def image = "jenkins/jnlp-slave"
     node(label)
