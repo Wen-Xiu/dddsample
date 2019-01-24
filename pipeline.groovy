@@ -38,6 +38,7 @@ spec:
 
         stage ('push') {
             container('docker') {
+                sleep 3000
                 sh './image-push.sh'
             }
         }
