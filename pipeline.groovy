@@ -24,11 +24,7 @@ pipeline{
 
         stage ('push') {
             steps {
-                sh '''
-//                  docker build . -f Dockerfile -t 494526681395.dkr.ecr.ap-southeast-1.amazonaws.com/dddsample
-//                  docker push 494526681395.dkr.ecr.ap-southeast-1.amazonaws.com/dddsample
-                echo 'WIP: push image to repository'
-                '''
+                sh 'echo WIP: push image to repository'
             }
         }
 
