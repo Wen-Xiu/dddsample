@@ -24,32 +24,30 @@ spec:
 ) {
     def image = "jenkins/jnlp-slave"
     node(label){
-        stages {
-            stage ("initialize") {
-                git 'https://github.com/Wen-Xiu/dddsample.git'
+        stage ("initialize") {
+            git 'https://github.com/Wen-Xiu/dddsample.git'
+        }
+        stage ('test'){
+            container('maven') {
+                sh "mvn test"
             }
-            stage ('test'){
-                container('maven') {
-                    sh "mvn test"
-                }
-            }
+        }
 
-            stage ('build'){
-                container('maven') {
-                    sh "mvn clean install -Dmaven.test.skip=true"
-                }
+        stage ('build'){
+            container('maven') {
+                sh "mvn clean install -Dmaven.test.skip=true"
             }
+        }
 
-            stage ('push') {
-                container('docker') {
-                    sh './image-push.sh'
-                }
+        stage ('push') {
+            container('docker') {
+                sh './image-push.sh'
             }
+        }
 
-            stage ('dev deploy') {
-                container('docker') {
-                    sh 'echo WIP: deploy to dev environment'
-                }
+        stage ('dev deploy') {
+            container('docker') {
+                sh 'echo WIP: deploy to dev environment'
             }
         }
     }
