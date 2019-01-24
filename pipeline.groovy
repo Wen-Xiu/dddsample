@@ -27,18 +27,18 @@ spec:
         stage ("initialize") {
             git 'https://github.com/Wen-Xiu/dddsample.git'
         }
-//
-//        stage ('test'){
-//            container('maven') {
-//                sh "mvn test"
-//            }
-//        }
-//
-//        stage ('build'){
-//            container('maven') {
-//                sh "mvn clean install -Dmaven.test.skip=true"
-//            }
-//        }
+
+        stage ('test'){
+            container('maven') {
+                sh "mvn test"
+            }
+        }
+
+        stage ('build'){
+            container('maven') {
+                sh "mvn clean install -Dmaven.test.skip=true"
+            }
+        }
 
         stage ('push') {
             container('docker') {
