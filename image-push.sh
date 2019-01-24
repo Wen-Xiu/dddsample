@@ -16,7 +16,7 @@ docker build -f Dockerfile -t 494526681395.dkr.ecr.ap-southeast-1.amazonaws.com/
 
 docker images|grep dddsample
 
-login_command=$(aws ecr get-login --registry-ids 494526681395 --region eu-central-1 --no-include-email)
+login_command=$(aws ecr get-login --registry-ids 494526681395 --region ap-southeast-1 --no-include-email)
 
 eval "${login_command} | sed 's|https://||'"
 
